@@ -38,7 +38,7 @@ public class SongRepository implements ISongRepository {
             public Boolean doInPreparedStatement(PreparedStatement preparedStatement) throws SQLException, DataAccessException {
                 preparedStatement.setInt(1,song.getId());
                 preparedStatement.setString(2,song.getAuthor());
-                preparedStatement.setString(2,song.getTitle());
+                preparedStatement.setString(3,song.getTitle());
                 return preparedStatement.execute();
             }
         });

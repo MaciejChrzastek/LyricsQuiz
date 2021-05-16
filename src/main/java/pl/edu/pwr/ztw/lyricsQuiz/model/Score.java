@@ -1,7 +1,7 @@
 package pl.edu.pwr.ztw.lyricsQuiz.model;
 
 public class Score {
-    private int scoreId;
+    private int id;
     private User user;
     private Song song;
 
@@ -26,8 +26,12 @@ public class Score {
         this.song = song;
     }
 
-    public Score(int scoreId, User user, Song song, int score, int difficulty, int max_score, String date) {
-        this.scoreId = scoreId;
+    public Score(){
+
+    }
+
+    public Score(int id, User user, Song song, int score, int difficulty, int max_score, String date) {
+        this.id = id;
         this.user = user;
         this.song = song;
         this.score = score;
@@ -36,12 +40,12 @@ public class Score {
         this.date = date;
     }
 
-    public int getScoreId() {
-        return scoreId;
+    public int getId() {
+        return id;
     }
 
-    public void setScoreId(int scoreId) {
-        this.scoreId = scoreId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getScore() {

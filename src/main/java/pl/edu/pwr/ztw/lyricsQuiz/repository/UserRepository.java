@@ -38,7 +38,7 @@ public class UserRepository implements IUserRepository {
             public Boolean doInPreparedStatement(PreparedStatement preparedStatement) throws SQLException, DataAccessException {
                 preparedStatement.setInt(1,user.getId());
                 preparedStatement.setString(2,user.getEmail());
-                preparedStatement.setString(2,user.getPassword());
+                preparedStatement.setString(3,user.getPassword());
                 return preparedStatement.execute();
             }
         });

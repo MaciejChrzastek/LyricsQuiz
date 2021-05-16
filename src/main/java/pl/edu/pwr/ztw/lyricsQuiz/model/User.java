@@ -9,6 +9,11 @@ public class User {
 
     }
 
+    @Override
+    public String toString() {
+        return "{id: "+id+", email: "+email+", password: "+password+"}";
+    }
+
     public User(int id, String password, String email) {
         this.id = id;
         this.email = email;

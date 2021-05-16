@@ -8,6 +8,10 @@ public class Song {
     public Song(){
 
     }
+    @Override
+    public String toString() {
+        return "{id: "+id+", author: "+author+", title: "+title+"}";
+    }
 
     public Song(int id, String author, String title) {
         this.id = id;
