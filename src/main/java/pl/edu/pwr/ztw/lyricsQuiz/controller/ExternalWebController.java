@@ -135,26 +135,31 @@ public class ExternalWebController {
             content.append(inputLine);
         }
         in.close();
+        int status = con.getResponseCode();
         con.disconnect();
 
 
         String response = String.valueOf(content);
 
-        /*
-        JsonParser parser = new JsonParser();
-        JsonElement element = parser.parse(response);
-        JsonObject jsonObject = element.getAsJsonObject();
-        JsonObject lyricsJsonObject = jsonObject.getAsJsonObject("lyrics");
-        String lyrics = lyricsJsonObject.getAsString();
 
-        lyrics = lyrics.replaceAll("\n","\n\n");
-        lyrics = lyrics.replaceAll("\r","\n\n");
-        lyrics = lyrics.replaceAll("\n\n\n\n","\n\n");
-        lyrics = lyrics.replaceAll("\n\n\n","\n\n");
+        if (status > 299) {
+            return response;
+        } else {
+            JsonParser parser = new JsonParser();
+            JsonElement jElement = parser.parse(response);
+            JsonObject jObjectAll = jElement.getAsJsonObject();
+            String lyrics = jObjectAll.get("lyrics").toString();
+
+            lyrics = lyrics.replaceAll("\n","\n\n");
+            lyrics = lyrics.replaceAll("\r","\n\n");
+            lyrics = lyrics.replaceAll("\n\n\n\n","\n\n");
+            lyrics = lyrics.replaceAll("\n\n\n","\n\n");
 
 
-         */
-        return response;
+
+            return lyrics;
+        }
+
     }
 
     private String replace_spaces(String title) {
