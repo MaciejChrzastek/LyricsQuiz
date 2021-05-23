@@ -15,19 +15,20 @@ public class UserController {
     @Autowired
     IUserRepository userRepository;
 
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/add/user", method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@RequestBody User user) {
         userRepository.createUser(user);
         return new ResponseEntity<>("User account was created successfully", HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/get/users", method = RequestMethod.GET)
     public List<User> getUsers(){
         return userRepository.getUsers();
     }
 
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/get/user/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getUser(@PathVariable("id") int id){
         User requestedUser = userRepository.getUser(id);
@@ -37,7 +38,7 @@ public class UserController {
         return new ResponseEntity<User>(requestedUser, HttpStatus.OK);
     }
 
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/update/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateUser(@PathVariable("id") int id, @RequestBody User user) {
 
@@ -49,7 +50,7 @@ public class UserController {
     }
 
 
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/delete/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteUser(@PathVariable("id") int id) {
         User to_be_deleted_user = userRepository.getUser(id);

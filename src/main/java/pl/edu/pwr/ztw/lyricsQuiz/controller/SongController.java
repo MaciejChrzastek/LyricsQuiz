@@ -15,19 +15,20 @@ public class SongController {
     @Autowired
     ISongRepository songRepository;
 
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/add/song", method = RequestMethod.POST)
     public ResponseEntity<Object> createSong(@RequestBody Song song) {
         songRepository.createSong(song);
         return new ResponseEntity<>("Song data was created successfully", HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/get/songs", method = RequestMethod.GET)
     public List<Song> getSongs(){
         return songRepository.getSongs();
     }
 
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/get/song/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getSong(@PathVariable("id") int id){
         Song requestedSong = songRepository.getSong(id);
@@ -37,7 +38,7 @@ public class SongController {
         return new ResponseEntity<Song>(requestedSong, HttpStatus.OK);
     }
 
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/update/song/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateSong(@PathVariable("id") int id, @RequestBody Song song) {
 
@@ -49,7 +50,7 @@ public class SongController {
     }
 
 
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @RequestMapping(value = "/delete/song/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteSong(@PathVariable("id") int id) {
         Song to_be_deleted_song = songRepository.getSong(id);
