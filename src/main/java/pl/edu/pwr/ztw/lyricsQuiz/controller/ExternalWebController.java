@@ -53,7 +53,7 @@ public class ExternalWebController {
 
         String query = title+"%20"+author;
 
-        String url_address = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=" +API_KEY + "&type=video&maxResults=1&videoEmbeddable=true&order=relevance&q="  + query;
+        String url_address = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=" +API_KEY + "&type=video&maxResults=1&videoEmbeddable=true&videoSyndicated=true&order=relevance&q="  + query;
 
         URL url = null;
         try {
