@@ -21,7 +21,7 @@ import java.net.URL;
 @RestController
 public class ExternalWebController {
 
-    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
     @RequestMapping(value = "/get/lyrics/{author}/{title}", method = RequestMethod.GET)
     public ResponseEntity<?> getLyricsText(@PathVariable("author") String author, @PathVariable("title") String title){
 
@@ -35,7 +35,7 @@ public class ExternalWebController {
         return new ResponseEntity<String>(lyrics, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
     @RequestMapping(value = "/get/video/{author}/{title}", method = RequestMethod.GET)
     public ResponseEntity<?> getVideoID(@PathVariable("author") String author, @PathVariable("title") String title){
 
