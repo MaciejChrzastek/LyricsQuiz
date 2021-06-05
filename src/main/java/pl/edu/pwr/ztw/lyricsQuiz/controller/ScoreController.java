@@ -5,8 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pwr.ztw.lyricsQuiz.model.Score;
+import pl.edu.pwr.ztw.lyricsQuiz.model.Song;
+import pl.edu.pwr.ztw.lyricsQuiz.model.User;
 import pl.edu.pwr.ztw.lyricsQuiz.repository.IScoreRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,10 +26,49 @@ public class ScoreController {
     }
 
     @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+    @RequestMapping(value = "/add/scoreByData/{score}/{max_score}", method = RequestMethod.POST)
+    public ResponseEntity<?> createScoreByData(@PathVariable("score") int score, @PathVariable("max_score") int max_score, @RequestBody Song song, @RequestBody User user){
+        ArrayList<Score> list_of_scores = (ArrayList<Score>) scoreRepository.getScores();
+        int current_max_id = list_of_scores.get(0).getId();
+        for(int i=1;i<list_of_scores.size();i++){
+            if(list_of_scores.get(i).getId()>current_max_id) current_max_id = list_of_scores.get(i).getId();
+        }
+        int new_score_id = current_max_id +1;
+        String new_score_date = java.time.LocalDate.now().toString();
+        int new_score_difficulty = 0;
+
+        Score newScore = new Score(new_score_id,user,song,score,new_score_difficulty,max_score,new_score_date);
+        scoreRepository.createScore(newScore);
+        return new ResponseEntity<>("Score data was created successfully", HttpStatus.CREATED);
+    }
+
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
     @RequestMapping(value = "/get/scores", method = RequestMethod.GET)
     public List<Score> getScores(){
         return scoreRepository.getScores();
     }
+
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+    @RequestMapping(value = "/get/scoresFromLastWeek", method = RequestMethod.GET)
+    public List<Score> getScoresFromLastWeek(){
+        return scoreRepository.getScoresFromLastWeek();
+    }
+
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+    @RequestMapping(value = "/get/scoresFromLastWeekOfPlayer/{email}", method = RequestMethod.GET)
+    public List<Score> getScoresFromLastWeekOfPlayer(@PathVariable("email") String email){
+        ArrayList<Score> list_of_scores= (ArrayList<Score>) scoreRepository.getScoresFromLastWeek();
+        List<Score> list_of_scores_of_player = new ArrayList<>();
+        for(int i=0;i<list_of_scores.size();i++){
+            if(list_of_scores.get(i).getUser().getEmail().equals(email)){
+                list_of_scores_of_player.add(list_of_scores.get(i));
+            }
+        }
+
+        return list_of_scores_of_player;
+    }
+
+
 
     @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
     @RequestMapping(value = "/get/score/{id}", method = RequestMethod.GET)

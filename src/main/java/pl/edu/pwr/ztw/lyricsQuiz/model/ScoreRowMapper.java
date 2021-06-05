@@ -24,7 +24,7 @@ public class ScoreRowMapper implements RowMapper {
         dataSource.setUsername( "root");
         dataSource.setPassword( "root");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        User referencedUser = (User) jdbcTemplate.queryForObject("SELECT id,email,password FROM User WHERE id = ?", new Object[] {resultSet.getInt("user_id")}, new UserRowMapper());
+        User referencedUser = (User) jdbcTemplate.queryForObject("SELECT id,email FROM User WHERE id = ?", new Object[] {resultSet.getInt("user_id")}, new UserRowMapper());
         score.setUser(referencedUser);
 
         Song referencedSong = (Song) jdbcTemplate.queryForObject("SELECT id,author,title FROM Song WHERE id = ?", new Object[] {resultSet.getInt("song_id")}, new SongRowMapper());

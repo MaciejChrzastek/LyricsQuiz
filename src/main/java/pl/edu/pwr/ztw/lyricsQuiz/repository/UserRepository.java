@@ -22,23 +22,27 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<User> getUsers() {
-        return jdbcTemplate.query("SELECT id,email,password FROM User", new UserRowMapper());
+        return jdbcTemplate.query("SELECT id,email FROM User", new UserRowMapper());
     }
 
     @Override
     public User getUser(int id) {
-        return (User) this.jdbcTemplate.queryForObject("SELECT id,email,password FROM User WHERE id = ?", new Object[] {id}, new UserRowMapper());
+        return (User) this.jdbcTemplate.queryForObject("SELECT id,email FROM User WHERE id = ?", new Object[] {id}, new UserRowMapper());
+    }
+
+    @Override
+    public User getUserByData(String email) {
+        return (User) this.jdbcTemplate.queryForObject("SELECT id,email FROM User WHERE email = ?", new Object[] {email}, new UserRowMapper());
     }
 
     @Override
     public Boolean createUser(User user) {
-        String query = "INSERT INTO User VALUES (?,?,?)";
+        String query = "INSERT INTO User VALUES (?,?)";
         return jdbcTemplate.execute(query, new PreparedStatementCallback<Boolean>() {
             @Override
             public Boolean doInPreparedStatement(PreparedStatement preparedStatement) throws SQLException, DataAccessException {
                 preparedStatement.setInt(1,user.getId());
                 preparedStatement.setString(2,user.getEmail());
-                preparedStatement.setString(3,user.getPassword());
                 return preparedStatement.execute();
             }
         });
@@ -46,9 +50,9 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public Integer updateUser(int id, User user) {
-        String query = "UPDATE User SET email = ?, password = ? WHERE id = ?";
-        Object [] params = {user.getEmail(), user.getPassword(), id};
-        int [] types = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.INTEGER};
+        String query = "UPDATE User SET email = ? WHERE id = ?";
+        Object [] params = {user.getEmail(), id};
+        int [] types = {java.sql.Types.VARCHAR, java.sql.Types.INTEGER};
 
         return jdbcTemplate.update(query,params,types);
 

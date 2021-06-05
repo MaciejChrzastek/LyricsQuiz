@@ -30,6 +30,10 @@ public class SongRepository implements ISongRepository {
         return (Song) this.jdbcTemplate.queryForObject("SELECT id,author,title FROM Song WHERE id = ?", new Object[] {id}, new SongRowMapper());
     }
 
+    public Song getSongByData(String title, String author) {
+        return (Song) this.jdbcTemplate.queryForObject("SELECT id,author,title FROM Song WHERE title = ? AND author = ?", new Object[] {title, author}, new SongRowMapper());
+    }
+
     @Override
     public Boolean createSong(Song song) {
         String query = "INSERT INTO Song VALUES (?,?,?)";

@@ -3,7 +3,6 @@ package pl.edu.pwr.ztw.lyricsQuiz.model;
 public class User {
     private int id;
     private String email;
-    private String password;
 
     public User(){
 
@@ -11,13 +10,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "{id: "+id+", email: "+email+", password: "+password+"}";
+        return "{id: "+id+", email: "+email+"}";
     }
 
-    public User(int id, String password, String email) {
+    public User(int id, String email) {
         this.id = id;
         this.email = email;
-        this.password = password;
     }
 
     public int getId() {
@@ -26,14 +24,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {

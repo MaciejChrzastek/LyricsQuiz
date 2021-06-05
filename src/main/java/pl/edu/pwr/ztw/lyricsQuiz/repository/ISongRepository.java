@@ -12,4 +12,5 @@ public interface ISongRepository {
     public abstract Integer updateSong(int id, Song song);
     public abstract Integer deleteSong(int id);
 
+    public abstract Song getSongByData(String title, String author);
 }

@@ -39,6 +39,16 @@ public class SongController {
     }
 
     @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+    @RequestMapping(value = "/get/songByData/{title}/{author}", method = RequestMethod.GET)
+    public ResponseEntity<?> getSongByData(@PathVariable("title") String title, @PathVariable("author") String author){
+        Song requestedSong = songRepository.getSongByData(title,author);
+        if (requestedSong == null){
+            return new ResponseEntity<String>("No song with this title and author was found",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Song>(requestedSong, HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
     @RequestMapping(value = "/update/song/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateSong(@PathVariable("id") int id, @RequestBody Song song) {
 

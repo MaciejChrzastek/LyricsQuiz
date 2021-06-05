@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.stereotype.Repository;
 import pl.edu.pwr.ztw.lyricsQuiz.model.Score;
 import pl.edu.pwr.ztw.lyricsQuiz.model.ScoreRowMapper;
+import pl.edu.pwr.ztw.lyricsQuiz.model.Song;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -25,6 +26,14 @@ public class ScoreRepository implements IScoreRepository {
         return jdbcTemplate.query("SELECT id, user_id, song_id, score, difficulty, max_score, date FROM Score", new ScoreRowMapper());
 
     }
+
+    @Override
+    public List<Score> getScoresFromLastWeek() {
+        return jdbcTemplate.query("SELECT id, user_id, song_id, score, difficulty, max_score, date FROM Score WHERE date >= DATEADD(day, -7, GETDATE())", new ScoreRowMapper());
+
+    }
+
+
 
     @Override
     public Score getScore(int id) {
