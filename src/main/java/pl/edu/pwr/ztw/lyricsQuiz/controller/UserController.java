@@ -26,8 +26,12 @@ public class UserController {
     @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
     @RequestMapping(value = "/addOrNotByData/user/{email}", method = RequestMethod.POST)
     public ResponseEntity<?> createUserOrNot(@PathVariable("email") String email) {
-        User requestedUser = userRepository.getUserByData(email);
-        if (requestedUser == null){
+
+        try{
+            User requestedUser = userRepository.getUserByData(email);
+            return new ResponseEntity<>("User already exists", HttpStatus.OK);
+
+        }catch (Exception e){
             ArrayList<User> list_of_users = (ArrayList<User>) userRepository.getUsers();
             int current_max_id = list_of_users.get(0).getId();
             for(int i=1;i<list_of_users.size();i++){
@@ -39,7 +43,6 @@ public class UserController {
             return new ResponseEntity<>("User account was created successfully", HttpStatus.CREATED);
 
         }
-        return new ResponseEntity<>("User already exists", HttpStatus.OK);
     }
 
     @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})

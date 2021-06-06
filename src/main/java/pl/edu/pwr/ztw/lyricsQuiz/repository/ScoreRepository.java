@@ -29,7 +29,7 @@ public class ScoreRepository implements IScoreRepository {
 
     @Override
     public List<Score> getScoresFromLastWeek() {
-        return jdbcTemplate.query("SELECT id, user_id, song_id, score, difficulty, max_score, date FROM Score WHERE date >= DATEADD(day, -7, GETDATE())", new ScoreRowMapper());
+        return jdbcTemplate.query("SELECT id, user_id, song_id, score, difficulty, max_score, date FROM Score WHERE date >= (DATE(NOW()) - INTERVAL 7 DAY)", new ScoreRowMapper());
 
     }
 
