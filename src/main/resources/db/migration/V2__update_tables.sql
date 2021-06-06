@@ -1,1 +1,0 @@
-ALTER TABLE lyrics_quiz_db.user DROP COLUMN password;

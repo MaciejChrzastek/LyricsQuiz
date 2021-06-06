@@ -1,19 +1,18 @@
-CREATE TABLE lyrics_quiz_db.song (
+CREATE TABLE IF NOT EXISTS lyrics_quiz_db.song (
   `id` int NOT NULL,
   `title` varchar(45) DEFAULT NULL,
   `author` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE lyrics_quiz_db.user (
+CREATE TABLE IF NOT EXISTS lyrics_quiz_db.user (
   `id` int NOT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE lyrics_quiz_db.score (
+CREATE TABLE IF NOT EXISTS lyrics_quiz_db.score (
   `id` int NOT NULL,
   `user_id` int DEFAULT NULL,
   `song_id` int DEFAULT NULL,
