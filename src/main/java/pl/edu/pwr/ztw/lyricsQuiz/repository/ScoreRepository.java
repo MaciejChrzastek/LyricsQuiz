@@ -46,7 +46,19 @@ public class ScoreRepository implements IScoreRepository {
         List<String> data = jdbcTemplate.query(query, new RowMapper<String>(){
             public String mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
-                return rs.getString(1);
+                String row =  rs.getString(1);
+                row += ",";
+                row += rs.getString(2);
+                row += ",";
+                row += rs.getString(3);
+                row += ",";
+                row += rs.getString(4);
+                row += ",";
+                row += rs.getString(5);
+                row += ",";
+                row += rs.getString(6);
+
+                return row;
             }
         });
         return data;
@@ -66,7 +78,19 @@ public class ScoreRepository implements IScoreRepository {
         List<String> data = jdbcTemplate.query(query, new RowMapper<String>(){
             public String mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
-                return rs.getString(1);
+                String row =  rs.getString(1);
+                row += ",";
+                row += rs.getString(2);
+                row += ",";
+                row += rs.getString(3);
+                row += ",";
+                row += rs.getString(4);
+                row += ",";
+                row += rs.getString(5);
+                row += ",";
+                row += rs.getString(6);
+
+                return row;
             }
         });
         return data;
@@ -80,10 +104,17 @@ public class ScoreRepository implements IScoreRepository {
                 "GROUP BY song_id\n" +
                 "Order By times_played DESC\n" +
                 "LIMIT 5";
+
         List<String> data = jdbcTemplate.query(query, new RowMapper<String>(){
             public String mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
-                return rs.getString(1);
+                String row =  rs.getString(1);
+                row += ",";
+                row += rs.getString(2);
+                row += ",";
+                row += rs.getString(3);
+
+                return row;
             }
         });
         return data;
