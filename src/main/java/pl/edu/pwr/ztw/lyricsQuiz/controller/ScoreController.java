@@ -3,11 +3,15 @@ package pl.edu.pwr.ztw.lyricsQuiz.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pwr.ztw.lyricsQuiz.model.Score;
 import pl.edu.pwr.ztw.lyricsQuiz.model.Song;
+import pl.edu.pwr.ztw.lyricsQuiz.model.SongRowMapper;
 import pl.edu.pwr.ztw.lyricsQuiz.model.User;
 import pl.edu.pwr.ztw.lyricsQuiz.repository.IScoreRepository;
+import pl.edu.pwr.ztw.lyricsQuiz.repository.SongRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +30,17 @@ public class ScoreController {
     }
 
     @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
-    @RequestMapping(value = "/add/scoreByData/{score}/{max_score}", method = RequestMethod.POST)
-    public ResponseEntity<?> createScoreByData(@PathVariable("score") int score, @PathVariable("max_score") int max_score, @RequestBody Song song, @RequestBody User user){
+    @RequestMapping(value = "/add/scoreByData/{score}/{max_score}/{title}/{author}", method = RequestMethod.POST)
+    public ResponseEntity<?> createScoreByData(@PathVariable("score") int score, @PathVariable("max_score") int max_score, @PathVariable("title") String title, @PathVariable("author") String author, @RequestBody User user){
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName( "com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl( "jdbc:mysql://localhost:3306/lyrics_quiz_db");
+        dataSource.setUsername( "root");
+        dataSource.setPassword( "root");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        Song song = (Song) jdbcTemplate.queryForObject("SELECT id,author,title FROM Song WHERE title = ? AND author = ?", new Object[] {title,author}, new SongRowMapper());
+
+
         ArrayList<Score> list_of_scores = (ArrayList<Score>) scoreRepository.getScores();
         int current_max_id = list_of_scores.get(0).getId();
         for(int i=1;i<list_of_scores.size();i++){
