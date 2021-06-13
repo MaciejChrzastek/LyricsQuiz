@@ -68,6 +68,24 @@ public class ScoreController {
         return list_of_scores_of_player;
     }
 
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+    @RequestMapping(value = "/get/scoresFromLastWeekString", method = RequestMethod.GET)
+    public List<String> getScoresFromLastWeekString(){
+        return scoreRepository.getScoresFromLastWeekString();
+    }
+
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+    @RequestMapping(value = "/get/scoresFromLastWeekOfPlayerString/{email}", method = RequestMethod.GET)
+    public List<String> getScoresFromLastWeekOfPlayerString(@PathVariable("email") String email){
+        return scoreRepository.getScoresFromLastWeekOfPlayerString(email);
+    }
+
+    @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+    @RequestMapping(value = "/get/topFiveScoresString", method = RequestMethod.GET)
+    public List<String> getTopFiveScoresString(){
+        return scoreRepository.getTopFiveScoresString();
+    }
+
 
 
     @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})

@@ -10,6 +10,9 @@ public interface IScoreRepository {
 
     public abstract List<Score> getScores();
     public abstract List<Score> getScoresFromLastWeek();
+    public abstract List<String> getScoresFromLastWeekString();
+    public abstract List<String> getScoresFromLastWeekOfPlayerString(String email);
+    public abstract List<String> getTopFiveScoresString();
 
 
     public abstract Score getScore(int id);
